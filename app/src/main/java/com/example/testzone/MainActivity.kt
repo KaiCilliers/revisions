@@ -38,8 +38,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-inline fun View.clickAction(crossinline action: () -> Unit) = setOnClickListener{action()}
-fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-fun TextView.clear(withText: String = "") { this.text = withText }
-fun View.gone() { visibility = View.GONE }
-fun ImageView.clear(imageResource: Int = R.drawable.empty_dice) { setImageResource(imageResource) }
