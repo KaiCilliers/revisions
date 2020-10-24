@@ -6,4 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ColorMyViewsActivity">
 
+    <TextView
+        android:id="@+id/tv_box_one"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/margin_wide"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:textSize="@dimen/box_text_size"
+        android:text="@string/box_one"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/whiteBox"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
