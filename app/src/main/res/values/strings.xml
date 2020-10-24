@@ -34,4 +34,8 @@
     <string name="arrow_up_image">Arrow Up Image</string>
     <string name="done_button_text">Done</string>
     <string name="box_one">Box One</string>
+    <string name="box_two">Box Two</string>
+    <string name="box_three">Box Three</string>
+    <string name="box_four">Box Four</string>
+    <string name="box_five">Box Five</string>
 </resources>
