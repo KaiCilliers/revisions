@@ -6,6 +6,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 
 inline fun View.clickAction(crossinline action: () -> Unit) = setOnClickListener{action()}
 fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -22,3 +24,4 @@ fun View.showKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(this, InputMethodManager.RESULT_UNCHANGED_SHOWN)
 }
+fun View.navigateTo(destination: Int) = findNavController().navigate(destination)
