@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.testzone.R
 import com.example.testzone.clickAction
 import com.example.testzone.databinding.FragmentTitleBinding
+import com.example.testzone.navigateTo
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,8 +40,16 @@ class TitleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentTitleBinding.inflate(inflater)
-        binding.playButton.clickAction {
-            findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+        binding.apply {
+            playButton.clickAction {
+                findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+            }
+            btnRules.clickAction {
+                btnRules.navigateTo(R.id.rulesFragment)
+            }
+            btnAbout.clickAction {
+                btnAbout.navigateTo(R.id.aboutFragment)
+            }
         }
         setHasOptionsMenu(true)
         return binding.root
