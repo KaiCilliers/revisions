@@ -24,13 +24,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <TextView
-            android:id="@+id/tv_result"
+        <ImageView
+            android:id="@+id/img_dice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/label_hello_world"/>
+            android:src="@drawable/empty_dice"
+            tools:src="@drawable/dice_1"/>
+        <ImageView
+            android:id="@+id/img_dice_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/empty_dice"
+            tools:src="@drawable/dice_1"/>
 
         <Button
             android:id="@+id/btn_roll"
