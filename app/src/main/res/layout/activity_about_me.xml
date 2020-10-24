@@ -20,6 +20,23 @@
         android:text="@string/name_label"
         tools:text="@string/name_label" />
 
+    <EditText
+        android:id="@+id/et_nickname_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/what_is_your_nickname_hint"
+        style="@style/NameStyle"
+        android:inputType="textPersonName"
+        android:textAlignment="center"/>
+    <Button
+        android:id="@+id/btn_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done_button_text"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/layout_margin"
+        android:fontFamily="@font/roboto_mono"
+        style="@style/Widget.AppCompat.Button.Colored"/>
     <ImageView
         android:id="@+id/img_star"
         android:layout_width="match_parent"
@@ -36,11 +53,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_margin"
-                app:srcCompat="@android:drawable/arrow_up_float"/>
+                android:contentDescription="@string/arrow_up_image"
+                app:srcCompat="@android:drawable/arrow_up_float" />
             <TextView
                 android:id="@+id/tv_bio"
                 android:layout_width="match_parent"
