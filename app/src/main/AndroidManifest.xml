@@ -10,11 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.ColorMyViewsActivity"
-            android:label="Test Zone">
-        </activity>
-        <activity
-            android:name=".activities.AboutMeActivity"
+            android:name=".trivia.TriviaActivity"
             android:label="Test Zone">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,10 +19,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.ColorMyViewsActivity"
+            android:label="Test Zone"></activity>
+        <activity
+            android:name=".activities.AboutMeActivity"
+            android:label="Test Zone">
+        </activity>
+        <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
