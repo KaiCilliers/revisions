@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ColorMyViewsActivity">
+    tools:context=".activities.ColorMyViewsActivity">
 
     <TextView
         android:id="@+id/tv_box_one"

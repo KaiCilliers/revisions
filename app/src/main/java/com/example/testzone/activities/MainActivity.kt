@@ -1,12 +1,12 @@
-package com.example.testzone
+package com.example.testzone.activities
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import com.example.testzone.R
+import com.example.testzone.clear
+import com.example.testzone.clickAction
+import com.example.testzone.gone
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
