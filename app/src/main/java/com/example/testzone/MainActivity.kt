@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         btn_roll.clickAction { rollDice(img_dice, img_dice_two) }
         btn_count_up.gone()
-        btn_reset.gone()
+        btn_reset.clickAction { clear(img_dice, img_dice_two) }
     }
     private fun rollDice(vararg views: ImageView) {
         for(view in views) {
@@ -31,9 +31,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun randomValue() = (1..6).random()
+    private fun clear(vararg views: ImageView) {
+        for(view in views) {
+            view.clear()
+        }
+    }
 
 }
 inline fun View.clickAction(crossinline action: () -> Unit) = setOnClickListener{action()}
 fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 fun TextView.clear(withText: String = "") { this.text = withText }
 fun View.gone() { visibility = View.GONE }
+fun ImageView.clear(imageResource: Int = R.drawable.empty_dice) { setImageResource(imageResource) }
