@@ -14,22 +14,25 @@ class ColorMyViewsActivity : AppCompatActivity() {
     }
     private fun setup() {
         val clickableViews = listOf<View>(
-            tv_box_one, tv_box_two, tv_box_three, tv_box_four, tv_box_five, constraint_layout
+            tv_box_one, tv_box_two, tv_box_three, tv_box_four, tv_box_five,
+            btn_red, btn_green, btn_yellow,
+            constraint_layout
         )
         for(item in clickableViews) {
             item.clickAction { colorView(item) }
         }
     }
-    private fun colorView(view: View) = view.setBackgroundColor(
-        when (view.id) {
-            R.id.tv_box_one -> Color.DKGRAY
-            R.id.tv_box_two-> Color.GRAY
-            R.id.tv_box_three -> Color.BLUE
-            R.id.tv_box_four -> Color.MAGENTA
-            R.id.tv_box_five -> Color.BLUE
-            else -> Color.LTGRAY
+    private fun colorView(view: View) = when (view.id) {
+            R.id.tv_box_one -> view.setBackgroundColor(Color.DKGRAY)
+            R.id.tv_box_two-> view.setBackgroundColor(Color.GRAY)
+            R.id.tv_box_three -> view.setBackgroundColor(Color.BLUE)
+            R.id.tv_box_four -> view.setBackgroundColor(Color.MAGENTA)
+            R.id.tv_box_five -> view.setBackgroundColor(Color.BLUE)
+            R.id.btn_red -> view.setBackgroundResource(R.color.my_red)
+            R.id.btn_yellow -> view.setBackgroundResource(R.color.my_yellow)
+            R.id.btn_green -> view.setBackgroundResource(R.color.my_green)
+            else -> view.setBackgroundColor(Color.LTGRAY)
         }
-    )
     private fun paintView(view: View) = view.setBackgroundResource(
         when(view.id) {
             R.id.tv_box_one -> R.drawable.dice_1
