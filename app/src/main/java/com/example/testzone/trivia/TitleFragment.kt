@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.testzone.R
+import com.example.testzone.clickAction
 import com.example.testzone.databinding.FragmentTitleBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +39,9 @@ class TitleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentTitleBinding.inflate(inflater)
+        binding.playButton.clickAction {
+            findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+        }
         return binding.root
     }
 
