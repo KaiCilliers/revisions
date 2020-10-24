@@ -17,4 +17,5 @@
     <string name="label_hello_world">Hello Square World!</string>
     <string name="roll_button_label">Roll</string>
     <string name="button_count_up_label">Count Up</string>
+    <string name="reset_button_label">Reset</string>
 </resources>

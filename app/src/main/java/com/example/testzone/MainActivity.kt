@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         btn_roll.clickAction { toast("Button clicked"); rollDice() }
         btn_count_up.clickAction { incrementLabel(tv_result) }
+        btn_reset.clickAction { clear(tv_result) }
     }
     private fun rollDice() {
         tv_result.text = (1..6).random().toString()
@@ -28,11 +29,8 @@ class MainActivity : AppCompatActivity() {
            }
        }
     }
+    private fun clear(tv: TextView) = tv.clear("0")
 }
-
-// Works, but we are can reuse this small code in a lot of places
-//fun Button.buttonClickAction(action: () -> Unit) = setOnClickListener{action}
-// Inline (which means no objects created, but direct calls instead) and workable on Views and not just Buttons
 inline fun View.clickAction(crossinline action: () -> Unit) = setOnClickListener{action()}
-
 fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+fun TextView.clear(withText: String = "") { this.text = withText }
