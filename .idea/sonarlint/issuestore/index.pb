@@ -11,3 +11,7 @@ d
 0app/src/main/java/com/example/testzone/MyName.kt,0/3/03ae9e2597916441e774b9eae685f20873bc2353
 t
 Dapp/src/main/java/com/example/testzone/activities/AboutMeActivity.kt,4/0/40235f63cc78a853e5ab62b6a023626343293d63
+n
+>app/src/main/java/com/example/testzone/trivia/RulesFragment.kt,0/5/0568dd1904de1a9abaa63fb7241da1a9c68e84c3
+o
+?app/src/main/java/com/example/testzone/trivia/TriviaActivity.kt,6/6/66a35469ce3d5fa84ab0ef561d449cea8072e48d
