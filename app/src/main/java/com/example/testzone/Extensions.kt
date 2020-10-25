@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 
@@ -25,3 +26,4 @@ fun View.showKeyboard() {
     imm.showSoftInput(this, InputMethodManager.RESULT_UNCHANGED_SHOWN)
 }
 fun View.navigateTo(destination: Int) = findNavController().navigate(destination)
+fun View.navigateTo(destination: NavDirections) = findNavController().navigate(destination)

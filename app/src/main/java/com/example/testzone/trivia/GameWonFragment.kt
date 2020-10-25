@@ -19,49 +19,65 @@ package com.example.testzone.trivia
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.example.testzone.R
 import com.example.testzone.clickAction
 import com.example.testzone.databinding.FragmentGameWonBinding
 import com.example.testzone.navigateTo
+import com.example.testzone.toast
 import kotlinx.android.synthetic.main.fragment_game_won.*
 
 
 class GameWonFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game_won, container, false)
+            inflater, R.layout.fragment_game_won, container, false
+        )
 
         binding.nextMatchButton.clickAction {
             nextMatchButton.navigateTo(R.id.action_gameWonFragment_to_gameFragment)
         }
-//        val args = GameWonFragmentArgs.fromBundle(arguments!!)
-//        Toast.makeText(context, "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}", Toast.LENGTH_LONG).show()
-
+        val args = GameWonFragmentArgs.fromBundle(requireArguments())
+        requireContext().toast("NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}")
         setHasOptionsMenu(true)
         return binding.root
     }
 
-    // Creating our Share Intent
-//    private fun getShareIntent() : Intent {
-//        val args = GameWonFragmentArgs.fromBundle(arguments!!)
-//        val shareIntent = Intent(Intent.ACTION_SEND)
-//        shareIntent.setType("text/plain")
-//                .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
-//        return shareIntent
-    }
+    private fun shareIntent(): Intent = Intent(Intent.ACTION_SEND).setType("text/plain")
+        .putExtra(
+            Intent.EXTRA_TEXT,
+            getString(
+                R.string.share_success_text,
+                GameWonFragmentArgs.fromBundle(requireArguments()).numCorrect,
+                GameWonFragmentArgs.fromBundle(requireArguments()).numQuestions
+            )
+        )
 
-    // Starting an Activity with our new Intent
-    private fun shareSuccess() {
-//        startActivity(getShareIntent())
-    }
+    private fun shareSuccess() = startActivity(shareIntent())
 
     // Showing the Share Menu Item Dynamically
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.winner_menu, menu)
+        if (shareIntent().resolveActivity(requireActivity().packageManager) == null)
+            menu.findItem(R.id.share).isVisible = false
+    }
+    // Sharing from the Menu
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.share -> shareSuccess()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+}
+
+
+// Showing the Share Menu Item Dynamically
 //    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
 //        super.onCreateOptionsMenu(menu, inflater)
 //        inflater?.inflate(R.menu.winner_menu, menu)
@@ -72,7 +88,7 @@ class GameWonFragment : Fragment() {
 //        }
 //    }
 
-    // Sharing from the Menu
+// Sharing from the Menu
 //    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 //        when (item!!.itemId) {
 //            R.id.share -> shareSuccess()
