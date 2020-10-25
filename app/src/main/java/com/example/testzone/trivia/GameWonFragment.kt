@@ -71,6 +71,10 @@ class GameWonFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.share -> shareSuccess()
+            R.id.share2 -> requireContext().toast("Dice One")
+            R.id.share3 -> requireContext().toast("Dice Two")
+            R.id.share4 -> requireContext().toast("Dice Three")
+            R.id.share5 -> requireContext().toast("Dice Four")
         }
         return super.onOptionsItemSelected(item)
     }

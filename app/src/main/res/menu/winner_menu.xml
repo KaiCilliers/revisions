@@ -25,4 +25,33 @@
         android:title="@string/share"
         android:visible="true"
         app:showAsAction="ifRoom" />
+    <!-- no real functionality -->
+    <item
+        android:id="@+id/share2"
+        android:enabled="true"
+        android:icon="@drawable/dice_1"
+        android:title="dice 1"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/share3"
+        android:enabled="true"
+        android:icon="@drawable/dice_2"
+        android:title="dice 2"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/share4"
+        android:enabled="true"
+        android:icon="@drawable/dice_3"
+        android:title="dice 3"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/share5"
+        android:enabled="true"
+        android:icon="@drawable/dice_4"
+        android:title="dice 4"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
 </menu>

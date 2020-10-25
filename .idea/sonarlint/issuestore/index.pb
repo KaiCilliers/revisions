@@ -17,3 +17,9 @@ o
 ?app/src/main/java/com/example/testzone/trivia/TriviaActivity.kt,6/6/66a35469ce3d5fa84ab0ef561d449cea8072e48d
 n
 >app/src/main/java/com/example/testzone/trivia/TitleFragment.kt,e/a/eab3e4fbc5de7692bfff46da51d9ceec2df6f028
+n
+>app/src/main/java/com/example/testzone/trivia/AboutFragment.kt,5/d/5deacee2d9116d66fd3a6b5ce1caed9ff4f21308
+m
+=app/src/main/java/com/example/testzone/trivia/GameFragment.kt,7/c/7c6351ddec08c2a357761982c6c1b2098839b826
+p
+@app/src/main/java/com/example/testzone/trivia/GameWonFragment.kt,1/7/172631bd73495e8db9ad807a3a591eff242dd443
