@@ -1,9 +1,8 @@
-package com.example.testzone.activities
+package com.example.testzone.simple
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.example.testzone.*
 import com.example.testzone.databinding.ActivityAboutMeBinding

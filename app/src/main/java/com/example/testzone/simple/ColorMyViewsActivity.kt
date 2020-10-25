@@ -1,4 +1,4 @@
-package com.example.testzone.activities
+package com.example.testzone.simple
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity

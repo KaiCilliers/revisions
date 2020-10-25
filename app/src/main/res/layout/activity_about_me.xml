@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:paddingStart="@dimen/layout_padding"
         android:paddingEnd="@dimen/layout_padding"
-        tools:context=".activities.AboutMeActivity">
+        tools:context=".simple.AboutMeActivity">
 
         <TextView
             android:id="@+id/tv_name"
