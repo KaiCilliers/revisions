@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.testzone.clickAction
 import com.example.testzone.databinding.GuessGameFragmentBinding
+import com.example.testzone.navigateTo
+import com.example.testzone.toast
 
 class GuessGameFragment : Fragment() {
     val viewModel: GameViewModel by lazy {
@@ -22,10 +24,26 @@ class GuessGameFragment : Fragment() {
         binding = GuessGameFragmentBinding.inflate(inflater)
         binding.correctButton.clickAction { onCorrect() }
         binding.skipButton.clickAction { onSkip() }
+        binding.endGameButton.clickAction { onEndGame() }
         updateScoreText()
         updateWordText()
         return binding.root
     }
+
+    private fun onEndGame() {
+        gameFinished()
+    }
+
+    private fun gameFinished() {
+        requireContext().toast("Game has just finsihed")
+        requireView().navigateTo(
+            GuessGameFragmentDirections
+                .actionGuessGameFragmentToGuessScoreFragment(
+                    viewModel.score
+                )
+        )
+    }
+
     private fun onSkip() {
         viewModel.onSkip()
         updateWordText()
@@ -37,6 +55,7 @@ class GuessGameFragment : Fragment() {
         updateWordText()
         updateScoreText()
     }
+
     private fun updateWordText() {
         binding.wordText.text = viewModel.word
     }

@@ -24,6 +24,9 @@
             app:destination="@id/guessTitleFragment"
             app:popUpTo="@id/guessTitleFragment"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="score"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/guessGameFragment"
