@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/guess_navigation"
+    app:startDestination="@id/guessTitleFragment">
+
+    <fragment
+        android:id="@+id/guessTitleFragment"
+        android:name="com.example.testzone.guess.GuessTitleFragment"
+        android:label="GuessTitleFragment"
+        tools:layout="@layout/guess_title_fragment">
+        <action
+            android:id="@+id/action_guessTitleFragment_to_guessGameFragment"
+            app:destination="@id/guessGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guessScoreFragment"
+        android:name="com.example.testzone.guess.score.GuessScoreFragment"
+        android:label="guess_score_fragment"
+        tools:layout="@layout/guess_score_fragment" >
+        <action
+            android:id="@+id/action_guessScoreFragment_to_guessTitleFragment"
+            app:destination="@id/guessTitleFragment"
+            app:popUpTo="@id/guessTitleFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/guessGameFragment"
+        android:name="com.example.testzone.guess.game.GuessGameFragment"
+        android:label="guess_game_fragment"
+        tools:layout="@layout/guess_game_fragment" >
+        <action
+            android:id="@+id/action_guessGameFragment_to_guessScoreFragment"
+            app:destination="@id/guessScoreFragment" />
+    </fragment>
+</navigation>
