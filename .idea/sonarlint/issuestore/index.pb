@@ -15,3 +15,5 @@ n
 >app/src/main/java/com/example/testzone/trivia/RulesFragment.kt,0/5/0568dd1904de1a9abaa63fb7241da1a9c68e84c3
 o
 ?app/src/main/java/com/example/testzone/trivia/TriviaActivity.kt,6/6/66a35469ce3d5fa84ab0ef561d449cea8072e48d
+n
+>app/src/main/java/com/example/testzone/trivia/TitleFragment.kt,e/a/eab3e4fbc5de7692bfff46da51d9ceec2df6f028
