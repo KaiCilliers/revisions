@@ -26,13 +26,10 @@ class GuessGameFragment : Fragment() {
     ): View? {
         binding = GuessGameFragmentBinding.inflate(inflater)
         binding.viewModel = viewModel
+        // Specify the fragment view as the lifecycle owner of the binding.
+        // This is used so that the binding can observe LiveData updates
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.score.subscribe(viewLifecycleOwner) {
-            binding.scoreText.text = it.toString()
-        }
-        viewModel.word.subscribe(viewLifecycleOwner) {
-            binding.wordText.text = it
-        }
         viewModel.eventGameFinished.subscribe(viewLifecycleOwner) {
             if (it) gameFinished()
         }

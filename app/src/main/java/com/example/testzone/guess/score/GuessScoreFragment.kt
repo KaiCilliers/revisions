@@ -31,9 +31,7 @@ class GuessScoreFragment : Fragment() {
     ): View? {
         val binding = GuessScoreFragmentBinding.inflate(inflater)
         binding.viewModel = viewModel
-        viewModel.score.subscribe(viewLifecycleOwner) {
-            binding.scoreText.text = it.toString()
-        }
+        binding.lifecycleOwner = viewLifecycleOwner
         viewModel.eventPlayAgain.subscribe(viewLifecycleOwner) {
             if(it) {
                 requireView().navigateTo(
