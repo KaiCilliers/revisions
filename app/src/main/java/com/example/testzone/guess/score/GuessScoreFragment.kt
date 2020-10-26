@@ -30,7 +30,7 @@ class GuessScoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = GuessScoreFragmentBinding.inflate(inflater)
-
+        binding.viewModel = viewModel
         viewModel.score.subscribe(viewLifecycleOwner) {
             binding.scoreText.text = it.toString()
         }
@@ -42,8 +42,6 @@ class GuessScoreFragment : Fragment() {
                 viewModel.onPlayAgainComplete()
             }
         }
-
-        binding.playAgainButton.clickAction { viewModel.onPlayAgain() }
 
         return binding.root
     }

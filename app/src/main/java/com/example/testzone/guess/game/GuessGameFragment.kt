@@ -25,9 +25,7 @@ class GuessGameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = GuessGameFragmentBinding.inflate(inflater)
-        binding.correctButton.clickAction { onCorrect() }
-        binding.skipButton.clickAction { onSkip() }
-        binding.endGameButton.clickAction { onEndGame() }
+        binding.viewModel = viewModel
 
         viewModel.score.subscribe(viewLifecycleOwner) {
             binding.scoreText.text = it.toString()
@@ -41,10 +39,6 @@ class GuessGameFragment : Fragment() {
         return binding.root
     }
 
-    private fun onEndGame() {
-        gameFinished()
-    }
-
     private fun gameFinished() {
         requireContext().toast("Game has just finsihed")
         requireView().navigateTo(
@@ -54,13 +48,5 @@ class GuessGameFragment : Fragment() {
                 )
         )
         viewModel.onGameFinishComplete()
-    }
-
-    private fun onSkip() {
-        viewModel.onSkip()
-    }
-
-    private fun onCorrect() {
-        viewModel.onCorrect()
     }
 }
