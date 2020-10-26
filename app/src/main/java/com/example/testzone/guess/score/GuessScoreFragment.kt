@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.example.testzone.clickAction
 import com.example.testzone.databinding.GuessScoreFragmentBinding
+import com.example.testzone.navigateTo
+import com.example.testzone.subscribe
 
 class GuessScoreFragment : Fragment() {
     private val factory: ScoreViewModelFactory by lazy {
@@ -27,7 +30,21 @@ class GuessScoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = GuessScoreFragmentBinding.inflate(inflater)
-        binding.scoreText.text = viewModel.score.toString()
+
+        viewModel.score.subscribe(viewLifecycleOwner) {
+            binding.scoreText.text = it.toString()
+        }
+        viewModel.eventPlayAgain.subscribe(viewLifecycleOwner) {
+            if(it) {
+                requireView().navigateTo(
+                    GuessScoreFragmentDirections.actionGuessScoreFragmentToGuessTitleFragment()
+                )
+                viewModel.onPlayAgainComplete()
+            }
+        }
+
+        binding.playAgainButton.clickAction { viewModel.onPlayAgain() }
+
         return binding.root
     }
 }
