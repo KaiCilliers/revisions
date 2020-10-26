@@ -6,6 +6,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -27,3 +30,5 @@ fun View.showKeyboard() {
 }
 fun View.navigateTo(destination: Int) = findNavController().navigate(destination)
 fun View.navigateTo(destination: NavDirections) = findNavController().navigate(destination)
+inline fun <T> LiveData<T>.subscribe(owner: LifecycleOwner, crossinline action: (T) -> Unit) =
+    observe(owner, Observer { action(it) })

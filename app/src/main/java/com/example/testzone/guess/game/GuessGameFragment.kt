@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.testzone.clickAction
 import com.example.testzone.databinding.GuessGameFragmentBinding
 import com.example.testzone.navigateTo
+import com.example.testzone.subscribe
 import com.example.testzone.toast
 
 class GuessGameFragment : Fragment() {
@@ -25,8 +28,13 @@ class GuessGameFragment : Fragment() {
         binding.correctButton.clickAction { onCorrect() }
         binding.skipButton.clickAction { onSkip() }
         binding.endGameButton.clickAction { onEndGame() }
-        updateScoreText()
-        updateWordText()
+
+        viewModel.score.subscribe(viewLifecycleOwner) {
+            binding.scoreText.text = it.toString()
+        }
+        viewModel.word.subscribe(viewLifecycleOwner) {
+            binding.wordText.text = it
+        }
         return binding.root
     }
 
@@ -46,21 +54,9 @@ class GuessGameFragment : Fragment() {
 
     private fun onSkip() {
         viewModel.onSkip()
-        updateWordText()
-        updateScoreText()
     }
 
     private fun onCorrect() {
         viewModel.onCorrect()
-        updateWordText()
-        updateScoreText()
-    }
-
-    private fun updateWordText() {
-        binding.wordText.text = viewModel.word.value
-    }
-
-    private fun updateScoreText() {
-        binding.scoreText.text = viewModel.score.value.toString()
     }
 }
