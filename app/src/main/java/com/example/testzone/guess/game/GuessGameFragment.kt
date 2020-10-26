@@ -39,7 +39,7 @@ class GuessGameFragment : Fragment() {
         requireView().navigateTo(
             GuessGameFragmentDirections
                 .actionGuessGameFragmentToGuessScoreFragment(
-                    viewModel.score
+                    viewModel.score.value ?: 0
                 )
         )
     }
@@ -57,10 +57,10 @@ class GuessGameFragment : Fragment() {
     }
 
     private fun updateWordText() {
-        binding.wordText.text = viewModel.word
+        binding.wordText.text = viewModel.word.value
     }
 
     private fun updateScoreText() {
-        binding.scoreText.text = viewModel.score.toString()
+        binding.scoreText.text = viewModel.score.value.toString()
     }
 }
