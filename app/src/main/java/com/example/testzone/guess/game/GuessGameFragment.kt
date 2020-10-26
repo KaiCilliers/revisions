@@ -35,6 +35,9 @@ class GuessGameFragment : Fragment() {
         viewModel.word.subscribe(viewLifecycleOwner) {
             binding.wordText.text = it
         }
+        viewModel.eventGameFinished.subscribe(viewLifecycleOwner) {
+            if (it) gameFinished()
+        }
         return binding.root
     }
 
@@ -50,6 +53,7 @@ class GuessGameFragment : Fragment() {
                     viewModel.score.value ?: 0
                 )
         )
+        viewModel.onGameFinishComplete()
     }
 
     private fun onSkip() {
