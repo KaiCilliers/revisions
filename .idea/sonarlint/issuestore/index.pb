@@ -35,3 +35,17 @@ u
 Eapp/src/main/java/com/example/testzone/simple/ColorMyViewsActivity.kt,5/c/5c508fb9956c58481796ee632710426db62303dd
 p
 @app/src/main/java/com/example/testzone/simple/AboutMeActivity.kt,6/3/638def1e0ad2eb667251145e995567d4735909ca
+m
+=app/src/main/java/com/example/testzone/guess/GuessActivity.kt,1/4/142d556e1b9e30630a0fff65a97a5f03d822355e
+r
+Bapp/src/main/java/com/example/testzone/guess/GuessTitleFragment.kt,d/2/d2d9d2a341ad46d6ae58f665591eb6e7d0775c9e
+r
+Bapp/src/main/java/com/example/testzone/guess/game/GameViewModel.kt,a/1/a18d65e6be75279c67173504436858f6b23ba7cd
+v
+Fapp/src/main/java/com/example/testzone/guess/game/GuessGameFragment.kt,9/c/9cea09005f987d1cc2fa8cf68099738c6ea2b773
+t
+Dapp/src/main/java/com/example/testzone/guess/score/ScoreViewModel.kt,1/c/1cafd24769fb9e5c886b20e8203d7380ac8456d1
+{
+Kapp/src/main/java/com/example/testzone/guess/score/ScoreViewModelFactory.kt,0/7/0787189b222ccfabe77ead7ad94473279092814b
+x
+Happ/src/main/java/com/example/testzone/guess/score/GuessScoreFragment.kt,4/7/47425a5b175dd6d61a833f29043202fb0bc9a482
