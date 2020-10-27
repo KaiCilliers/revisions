@@ -57,7 +57,7 @@ class TrackerFragment : Fragment() {
         }
         viewModel.nights.subscribe(viewLifecycleOwner) {
             it?.let {
-                adapter.data = it
+                adapter.submitList(it)
             }
         }
         return binding.root
