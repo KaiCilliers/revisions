@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 
 inline fun View.clickAction(crossinline action: () -> Unit) = setOnClickListener{action()}
 fun Context.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -32,3 +33,4 @@ fun View.navigateTo(destination: Int) = findNavController().navigate(destination
 fun View.navigateTo(destination: NavDirections) = findNavController().navigate(destination)
 inline fun <T> LiveData<T>.subscribe(owner: LifecycleOwner, crossinline action: (T) -> Unit) =
     observe(owner, Observer { action(it) })
+fun snackbar(message: String, rootView: View) = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT).show()

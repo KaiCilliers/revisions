@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.testzone.R
 import com.example.testzone.databinding.FragmentSleepTrackerBinding
 import com.example.testzone.navigateTo
 import com.example.testzone.sleep.database.SleepDatabase
+import com.example.testzone.snackbar
 import com.example.testzone.subscribe
+import timber.log.Timber
 
 class TrackerFragment : Fragment() {
     private val application by lazy { requireNotNull(this.activity).application }
@@ -31,13 +34,27 @@ class TrackerFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         viewModel.navigateToQuality.subscribe(this) {
+            Timber.e("inside 5")
             it?.let {
+                Timber.e("inside 6")
                 requireView().navigateTo(
                     TrackerFragmentDirections.actionTrackerFragmentToQuailityFragment(
                         it.id
                     )
                 )
+                Timber.e("inside 7")
                 viewModel.doneNavigating()
+            }
+        }
+        viewModel.showSnackBarEvent.subscribe(this) {
+            Timber.e("I am trying to show a nickers bar")
+            if (it) {
+                Timber.e("fok")
+                snackbar(
+                    getString(R.string.cleared_message),
+                    requireActivity().findViewById(android.R.id.content)
+                )
+                viewModel.doneShowingSnackBar()
             }
         }
         return binding.root

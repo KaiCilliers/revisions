@@ -7,19 +7,34 @@ import com.example.testzone.sleep.database.SleepNightEntity
 import com.example.testzone.sleep.formatNights
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class TrackerViewModel(
     val db: SleepDao,
     application: Application
 ) : AndroidViewModel(application) {
-    private val _navigateToQuality = MutableLiveData<SleepNightEntity>()
-    val navigateToQuality: LiveData<SleepNightEntity>
+    private val _navigateToQuality = MutableLiveData<SleepNightEntity?>()
+    val navigateToQuality: LiveData<SleepNightEntity?>
         get() = _navigateToQuality
+
+    private val _showSnackBarEvent = MutableLiveData<Boolean>()
+    val showSnackBarEvent: LiveData<Boolean>
+        get() = _showSnackBarEvent
 
     private var tonight = MutableLiveData<SleepNightEntity?>()
     private val nights = db.all()
     val nightsString = Transformations.map(nights) {
         formatNights(it, application.resources)
+    }
+
+    val startButtonVisible = Transformations.map(tonight) {
+        it == null
+    }
+    val stopButtonVisible = Transformations.map(tonight) {
+        it != null
+    }
+    val clearButtonVisible = Transformations.map(nights) {
+        it?.isNotEmpty()
     }
 
     init {
@@ -48,10 +63,15 @@ class TrackerViewModel(
     }
 
     fun onStopTracking() {
+        Timber.e("OK")
         viewModelScope.launch(Dispatchers.IO) {
+            Timber.e("inside 1")
             val oldNight = tonight.value ?: return@launch
+            Timber.e("inside 2")
             oldNight.endTimeMilli = System.currentTimeMillis()
+            Timber.e("inside 3")
             update(oldNight)
+            Timber.e("inside 4")
             _navigateToQuality.postValue(oldNight)
         }
     }
@@ -60,11 +80,15 @@ class TrackerViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             clear()
             tonight.postValue(null)
+            _showSnackBarEvent.postValue(true)
         }
     }
 
     fun doneNavigating() {
-        _navigateToQuality.value = null
+        _navigateToQuality.postValue(null)
+    }
+    fun doneShowingSnackBar() {
+        _showSnackBarEvent.value = false
     }
 
     private suspend fun clear() {
