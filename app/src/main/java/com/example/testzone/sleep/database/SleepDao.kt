@@ -21,7 +21,7 @@ interface SleepDao {
     fun all(): LiveData<List<SleepNightEntity>>
 
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY id DESC LIMIT 1")
-    fun latest(): SleepNightEntity?
+    fun tonight(): SleepNightEntity?
 
     @Query("DELETE FROM daily_sleep_quality_table")
     fun clear()

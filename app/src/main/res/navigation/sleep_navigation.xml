@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sleep_navigation"
-    app:startDestination="@id/quailityFragment">
-
+    app:startDestination="@id/trackerFragment">
+    <fragment
+        android:id="@+id/trackerFragment"
+        android:name="com.example.testzone.sleep.tracker.TrackerFragment"
+        android:label="TrackerFragment"
+        tools:layout="@layout/fragment_sleep_tracker">
+        <action
+            android:id="@+id/action_trackerFragment_to_quailityFragment"
+            app:destination="@id/quailityFragment" />
+    </fragment>
     <fragment
         android:id="@+id/quailityFragment"
         android:name="com.example.testzone.sleep.quality.QuailityFragment"
         android:label="QuailityFragment"
         tools:layout="@layout/fragment_sleep_quality"/>
-    <fragment
-        android:id="@+id/trackerFragment"
-        android:name="com.example.testzone.sleep.tracker.TrackerFragment"
-        android:label="TrackerFragment"
-        tools:layout="@layout/fragment_sleep_tracker"/>
 </navigation>

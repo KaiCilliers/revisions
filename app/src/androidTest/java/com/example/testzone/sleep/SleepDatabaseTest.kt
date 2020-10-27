@@ -6,7 +6,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.example.testzone.sleep.database.SleepDao
 import com.example.testzone.sleep.database.SleepDatabase
 import com.example.testzone.sleep.database.SleepNightEntity
-import com.example.testzone.subscribe
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -39,7 +38,7 @@ class SleepDatabaseTest {
     fun insert_and_get_a_night() {
         val night = SleepNightEntity()
         sleepDao.insert(night)
-        val tonight = sleepDao.latest()
+        val tonight = sleepDao.tonight()
         assertEquals(tonight?.sleepQuality, -1)
     }
 
@@ -73,7 +72,7 @@ class SleepDatabaseTest {
         sleepDao.insert(SleepNightEntity())
         sleepDao.insert(SleepNightEntity())
         sleepDao.clear()
-        val tonight = sleepDao.latest()
+        val tonight = sleepDao.tonight()
         assertEquals(tonight, null)
     }
 }
