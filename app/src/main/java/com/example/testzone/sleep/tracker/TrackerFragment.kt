@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.testzone.R
 import com.example.testzone.databinding.FragmentSleepTrackerBinding
 import com.example.testzone.navigateTo
+import com.example.testzone.sleep.SleepNightAdapter
 import com.example.testzone.sleep.database.SleepDatabase
 import com.example.testzone.snackbar
 import com.example.testzone.subscribe
@@ -24,6 +25,7 @@ class TrackerFragment : Fragment() {
             factory
         ).get(TrackerViewModel::class.java)
     }
+    private val adapter by lazy { SleepNightAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,9 +33,10 @@ class TrackerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentSleepTrackerBinding.inflate(inflater)
+        binding.rcSleepList.adapter = adapter
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        viewModel.navigateToQuality.subscribe(this) {
+        viewModel.navigateToQuality.subscribe(viewLifecycleOwner) {
             Timber.e("inside 5")
             it?.let {
                 Timber.e("inside 6")
@@ -46,7 +49,7 @@ class TrackerFragment : Fragment() {
                 viewModel.doneNavigating()
             }
         }
-        viewModel.showSnackBarEvent.subscribe(this) {
+        viewModel.showSnackBarEvent.subscribe(viewLifecycleOwner) {
             Timber.e("I am trying to show a nickers bar")
             if (it) {
                 Timber.e("fok")
@@ -55,6 +58,11 @@ class TrackerFragment : Fragment() {
                     requireActivity().findViewById(android.R.id.content)
                 )
                 viewModel.doneShowingSnackBar()
+            }
+        }
+        viewModel.nights.subscribe(viewLifecycleOwner) {
+            it?.let {
+                adapter.data = it
             }
         }
         return binding.root

@@ -22,7 +22,7 @@ class TrackerViewModel(
         get() = _showSnackBarEvent
 
     private var tonight = MutableLiveData<SleepNightEntity?>()
-    private val nights = db.all()
+    val nights = db.all()
     val nightsString = Transformations.map(nights) {
         formatNights(it, application.resources)
     }
