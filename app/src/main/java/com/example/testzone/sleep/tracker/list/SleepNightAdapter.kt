@@ -6,6 +6,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testzone.databinding.ListItemSleepNightGridBinding
 import com.example.testzone.sleep.database.SleepNightEntity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ClassCastException
 
 private val ITEM_VIEW_TYPE_HEADER = 0
@@ -15,6 +19,7 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
     ListAdapter<DataItem, RecyclerView.ViewHolder>(
     SleepNightDifferencesCallBack()
 ) {
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_HEADER -> HeaderViewHolder.from(parent)
@@ -23,12 +28,16 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
     }
 
-    fun addHeaderAndSubmitList(list: List<SleepNightEntity>) {
-        val items = when (list.size) {
-            0 -> listOf(DataItem.Header)
-            else -> listOf(DataItem.Header) + list.map { DataItem.SleepNightItem(it) }
+    fun addHeaderAndSubmitList(list: List<SleepNightEntity>?) {
+        adapterScope.launch {
+            val items = when (list) {
+                null -> listOf(DataItem.Header)
+                else -> listOf(DataItem.Header) + list.map { DataItem.SleepNightItem(it) }
+            }
+            withContext(Dispatchers.Main) {
+                submitList(items)
+            }
         }
-        submitList(items)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

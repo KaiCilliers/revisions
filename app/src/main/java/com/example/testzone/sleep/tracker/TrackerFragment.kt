@@ -28,7 +28,6 @@ class TrackerFragment : Fragment() {
     }
     private val adapter by lazy { SleepNightAdapter(
         SleepNightListener { id ->
-            snackbar("$id", requireView())
             viewModel.onSleepItemClicked(id)
         }
     ) }
@@ -74,12 +73,19 @@ class TrackerFragment : Fragment() {
                 viewModel.onSleepDetailNavigated()
             }
         }
-        binding.rcSleepList.layoutManager = GridLayoutManager(
+        val gridLayoutManager = GridLayoutManager(
             activity,
             3,
             GridLayoutManager.VERTICAL,
             false
         )
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int = when (position) {
+                0 -> 3
+                else -> 1
+            }
+        }
+        binding.rcSleepList.layoutManager = gridLayoutManager
         return binding.root
     }
 }
