@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.testzone">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".dessert.ClickerApplication"
         android:allowBackup="true"
@@ -10,15 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".sleep.SleepActivity">
+        <activity android:name=".mars.MarsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".guess.GuessActivity"></activity>
-        <activity android:name=".dessert.DessertActivity"></activity>
+        <activity android:name=".sleep.SleepActivity"></activity>
+        <activity android:name=".guess.GuessActivity" />
+        <activity android:name=".dessert.DessertActivity" />
         <activity
             android:name=".trivia.TriviaActivity"
             android:label="Test Zone" />
