@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.testzone.R
 import com.example.testzone.databinding.FragmentSleepTrackerBinding
 import com.example.testzone.navigateTo
@@ -13,6 +15,7 @@ import com.example.testzone.sleep.SleepNightAdapter
 import com.example.testzone.sleep.database.SleepDatabase
 import com.example.testzone.snackbar
 import com.example.testzone.subscribe
+import kotlinx.android.synthetic.main.fragment_sleep_tracker.*
 import timber.log.Timber
 
 class TrackerFragment : Fragment() {
@@ -60,6 +63,12 @@ class TrackerFragment : Fragment() {
                 adapter.submitList(it)
             }
         }
+        binding.rcSleepList.layoutManager = GridLayoutManager(
+            activity,
+            3,
+            GridLayoutManager.VERTICAL,
+            false
+        )
         return binding.root
     }
 }
