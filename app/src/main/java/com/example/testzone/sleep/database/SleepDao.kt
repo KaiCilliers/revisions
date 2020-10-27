@@ -20,7 +20,7 @@ interface SleepDao {
     @Query("SELECT * FROM daily_sleep_quality_table WHERE id = :id")
     fun nightLiveData(id: Long): LiveData<SleepNightEntity>
 
-    @Query("SELECT * FROM daily_sleep_quality_table")
+    @Query("SELECT * FROM daily_sleep_quality_table ORDER BY id DESC")
     fun all(): LiveData<List<SleepNightEntity>>
 
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY id DESC LIMIT 1")

@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.testzone.R
 import com.example.testzone.databinding.FragmentSleepTrackerBinding
 import com.example.testzone.navigateTo
-import com.example.testzone.sleep.SleepNightAdapter
 import com.example.testzone.sleep.database.SleepDatabase
+import com.example.testzone.sleep.tracker.list.SleepNightAdapter
+import com.example.testzone.sleep.tracker.list.SleepNightListener
 import com.example.testzone.snackbar
 import com.example.testzone.subscribe
-import kotlinx.android.synthetic.main.fragment_sleep_tracker.*
-import timber.log.Timber
 
 class TrackerFragment : Fragment() {
     private val application by lazy { requireNotNull(this.activity).application }
@@ -28,7 +26,11 @@ class TrackerFragment : Fragment() {
             factory
         ).get(TrackerViewModel::class.java)
     }
-    private val adapter by lazy { SleepNightAdapter() }
+    private val adapter by lazy { SleepNightAdapter(
+        SleepNightListener { id ->
+            snackbar("$id", requireView())
+        }
+    ) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
