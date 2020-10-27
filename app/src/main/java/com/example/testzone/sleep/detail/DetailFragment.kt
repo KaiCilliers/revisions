@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.testzone.databinding.FragmentSleepDetailBinding
+import com.example.testzone.navigateTo
 import com.example.testzone.sleep.database.SleepDatabase
+import com.example.testzone.subscribe
 
 class DetailFragment : Fragment() {
     private val application by lazy { requireActivity().application }
@@ -26,6 +28,13 @@ class DetailFragment : Fragment() {
         val binding = FragmentSleepDetailBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        viewModel.navigateToTracker.subscribe(viewLifecycleOwner) {
+            if(it)
+                requireView().navigateTo(
+                    DetailFragmentDirections.actionDetailFragmentToTrackerFragment()
+                )
+            viewModel.doneNavigating()
+        }
         return binding.root
     }
 }

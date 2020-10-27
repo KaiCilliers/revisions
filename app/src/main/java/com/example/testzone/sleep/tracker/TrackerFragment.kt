@@ -29,6 +29,7 @@ class TrackerFragment : Fragment() {
     private val adapter by lazy { SleepNightAdapter(
         SleepNightListener { id ->
             snackbar("$id", requireView())
+            viewModel.onSleepItemClicked(id)
         }
     ) }
 
@@ -63,6 +64,14 @@ class TrackerFragment : Fragment() {
         viewModel.nights.subscribe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
+            }
+        }
+        viewModel.navigateToDetail.subscribe(viewLifecycleOwner) {
+            it?.let {
+                requireView().navigateTo(
+                    TrackerFragmentDirections.actionTrackerFragmentToDetailFragment(it)
+                )
+                viewModel.onSleepDetailNavigated()
             }
         }
         binding.rcSleepList.layoutManager = GridLayoutManager(

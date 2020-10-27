@@ -21,6 +21,10 @@ class TrackerViewModel(
     val showSnackBarEvent: LiveData<Boolean>
         get() = _showSnackBarEvent
 
+    private val _navigateToDetail = MutableLiveData<Long?>()
+    val navigateToDetail: LiveData<Long?>
+        get() = _navigateToDetail
+
     private var tonight = MutableLiveData<SleepNightEntity?>()
     val nights = db.all()
     val nightsString = Transformations.map(nights) {
@@ -77,6 +81,14 @@ class TrackerViewModel(
             tonight.postValue(null)
             _showSnackBarEvent.postValue(true)
         }
+    }
+
+    fun onSleepItemClicked(id: Long) {
+        _navigateToDetail.value = id
+    }
+
+    fun onSleepDetailNavigated() {
+        _navigateToDetail.value = null
     }
 
     fun doneNavigating() {
