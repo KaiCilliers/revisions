@@ -37,7 +37,7 @@
                 android:layout_marginStart="@dimen/margin_wide"
                 android:layout_marginTop="@dimen/margin_wide"
                 android:layout_marginEnd="@dimen/margin_wide"
-                android:text="@string/how_was_hour_sleep" />
+                android:text="@{viewModel.nightsString}" />
         </ScrollView>
         <!-- With data binding and LiveData, we can track the buttons' visibility states
            from the ViewModel. The click handler is in the ViewModel as well, and

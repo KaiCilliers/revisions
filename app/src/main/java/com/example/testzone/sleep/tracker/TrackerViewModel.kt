@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.testzone.sleep.database.SleepDao
 import com.example.testzone.sleep.database.SleepNightEntity
+import com.example.testzone.sleep.formatNights
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -12,7 +13,10 @@ class TrackerViewModel(
     application: Application
 ) : AndroidViewModel(application) {
     private var tonight = MutableLiveData<SleepNightEntity?>()
-
+    private val nights = db.all()
+    val nightsString = Transformations.map(nights) {
+        formatNights(it, application.resources)
+    }
     init {
         initTonight()
     }
