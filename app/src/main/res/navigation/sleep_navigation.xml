@@ -11,7 +11,14 @@
         tools:layout="@layout/fragment_sleep_tracker">
         <action
             android:id="@+id/action_trackerFragment_to_quailityFragment"
-            app:destination="@id/quailityFragment" />
+            app:destination="@id/quailityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right"/>
+        <action
+            android:id="@+id/action_trackerFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right"/>
     </fragment>
     <fragment
         android:id="@+id/quailityFragment"
@@ -20,8 +27,27 @@
         tools:layout="@layout/fragment_sleep_quality">
         <action
             android:id="@+id/action_quailityFragment_to_trackerFragment"
-            app:destination="@id/trackerFragment" />
-        <argument android:name="sleepNightKey"
+            app:destination="@id/trackerFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/trackerFragment"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="sleepNightKey"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.testzone.sleep.detail.DetailFragment"
+        android:label="fragment_sleep_detail"
+        tools:layout="@layout/fragment_sleep_detail" >
+        <argument
+            android:name="sleepNightKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_detailFragment_to_trackerFragment"
+            app:destination="@id/trackerFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/trackerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

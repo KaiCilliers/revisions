@@ -17,6 +17,9 @@ interface SleepDao {
     @Query("SELECT * FROM daily_sleep_quality_table WHERE id = :id")
     fun night(id: Long): SleepNightEntity?
 
+    @Query("SELECT * FROM daily_sleep_quality_table WHERE id = :id")
+    fun nightLiveData(id: Long): LiveData<SleepNightEntity>
+
     @Query("SELECT * FROM daily_sleep_quality_table")
     fun all(): LiveData<List<SleepNightEntity>>
 
