@@ -37,22 +37,17 @@ class TrackerFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         viewModel.navigateToQuality.subscribe(viewLifecycleOwner) {
-            Timber.e("inside 5")
             it?.let {
-                Timber.e("inside 6")
                 requireView().navigateTo(
                     TrackerFragmentDirections.actionTrackerFragmentToQuailityFragment(
                         it.id
                     )
                 )
-                Timber.e("inside 7")
                 viewModel.doneNavigating()
             }
         }
         viewModel.showSnackBarEvent.subscribe(viewLifecycleOwner) {
-            Timber.e("I am trying to show a nickers bar")
             if (it) {
-                Timber.e("fok")
                 snackbar(
                     getString(R.string.cleared_message),
                     requireActivity().findViewById(android.R.id.content)

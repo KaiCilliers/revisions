@@ -63,15 +63,10 @@ class TrackerViewModel(
     }
 
     fun onStopTracking() {
-        Timber.e("OK")
         viewModelScope.launch(Dispatchers.IO) {
-            Timber.e("inside 1")
             val oldNight = tonight.value ?: return@launch
-            Timber.e("inside 2")
             oldNight.endTimeMilli = System.currentTimeMillis()
-            Timber.e("inside 3")
             update(oldNight)
-            Timber.e("inside 4")
             _navigateToQuality.postValue(oldNight)
         }
     }
