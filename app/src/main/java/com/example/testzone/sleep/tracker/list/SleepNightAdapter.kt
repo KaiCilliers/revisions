@@ -6,19 +6,48 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testzone.databinding.ListItemSleepNightGridBinding
 import com.example.testzone.sleep.database.SleepNightEntity
+import java.lang.ClassCastException
+
+private val ITEM_VIEW_TYPE_HEADER = 0
+private val ITEM_VIEW_TYPE_ITEM = 1
 
 class SleepNightAdapter(val clickListener: SleepNightListener):
-    ListAdapter<SleepNightEntity, SleepNightAdapter.FullViewHolder>(
+    ListAdapter<DataItem, RecyclerView.ViewHolder>(
     SleepNightDifferencesCallBack()
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FullViewHolder {
-        return FullViewHolder.from(
-            parent
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            ITEM_VIEW_TYPE_HEADER -> HeaderViewHolder.from(parent)
+            ITEM_VIEW_TYPE_ITEM -> FullViewHolder.from(parent)
+            else -> throw ClassCastException("Unknown viewType $viewType")
+        }
     }
 
-    override fun onBindViewHolder(holder: FullViewHolder, position: Int) {
-        holder.bind(getItem(position), clickListener)
+    fun addHeaderAndSubmitList(list: List<SleepNightEntity>) {
+        val items = when (list.size) {
+            0 -> listOf(DataItem.Header)
+            else -> listOf(DataItem.Header) + list.map { DataItem.SleepNightItem(it) }
+        }
+        submitList(items)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when(holder) {
+            is FullViewHolder -> {
+                holder.bind(
+                    (getItem(position) as DataItem.SleepNightItem).sleepNight,
+                    clickListener
+                )
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is DataItem.Header -> ITEM_VIEW_TYPE_HEADER
+            is DataItem.SleepNightItem -> ITEM_VIEW_TYPE_ITEM
+            else -> -1
+        }
     }
 
     class FullViewHolder private constructor(

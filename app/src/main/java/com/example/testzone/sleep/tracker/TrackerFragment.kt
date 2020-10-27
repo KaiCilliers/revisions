@@ -63,7 +63,7 @@ class TrackerFragment : Fragment() {
         }
         viewModel.nights.subscribe(viewLifecycleOwner) {
             it?.let {
-                adapter.submitList(it)
+                adapter.addHeaderAndSubmitList(it)
             }
         }
         viewModel.navigateToDetail.subscribe(viewLifecycleOwner) {
