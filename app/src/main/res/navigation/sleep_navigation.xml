@@ -17,5 +17,11 @@
         android:id="@+id/quailityFragment"
         android:name="com.example.testzone.sleep.quality.QuailityFragment"
         android:label="QuailityFragment"
-        tools:layout="@layout/fragment_sleep_quality"/>
+        tools:layout="@layout/fragment_sleep_quality">
+        <action
+            android:id="@+id/action_quailityFragment_to_trackerFragment"
+            app:destination="@id/trackerFragment" />
+        <argument android:name="sleepNightKey"
+            app:argType="long" />
+    </fragment>
 </navigation>
