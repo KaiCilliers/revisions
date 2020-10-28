@@ -17,3 +17,31 @@
 
 package com.example.testzone.mars
 
+import android.widget.ImageView
+import androidx.core.net.toUri
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.testzone.R
+import com.example.testzone.mars.network.MarsProperty
+import com.example.testzone.mars.overview.list.PhotoGridAdapter
+
+@BindingAdapter("imageUrl")
+fun bindImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView.context)
+            .load(imgUri)
+            .apply(RequestOptions()
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_broken_image))
+            .into(imgView)
+    }
+}
+
+@BindingAdapter("listData")
+fun bindRecyclerView(rc: RecyclerView, data: List<MarsProperty>?) {
+    val adapter = rc.adapter as PhotoGridAdapter
+    adapter.submitList(data)
+}

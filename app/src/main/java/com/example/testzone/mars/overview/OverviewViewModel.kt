@@ -27,10 +27,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import timber.log.Timber
 import java.lang.Exception
 
 /**
@@ -45,9 +41,9 @@ class OverviewViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
-    private val _property = MutableLiveData<MarsProperty>()
-    val property: LiveData<MarsProperty>
-        get() = _property
+    private val _properties = MutableLiveData<List<MarsProperty>>()
+    val properties: LiveData<List<MarsProperty>>
+        get() = _properties
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -70,11 +66,8 @@ class OverviewViewModel : ViewModel() {
         viewModelScope.launch {
             val deferred = MarsApi.retrofitService.getProperties()
             try {
-                val listResult = deferred.await()
-                _response.value = "Success: ${listResult.size} Mars properties retrieved"
-                if(listResult.isNotEmpty()) {
-                   _property.value = listResult[0]
-                }
+                _properties.value = deferred.await()
+                _response.value = "Success: Mars properties retrieved"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
