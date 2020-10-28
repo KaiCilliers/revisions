@@ -15,10 +15,18 @@
         android:layout_height="match_parent"
         android:background="@color/background_grey">
 
-        <TextView
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/loading_spinner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="yo"
-            android:textAlignment="center" />
+            android:layout_gravity="center"
+            app:isNetworkError="@{safeUnbox(viewModel.eventNetworkError)}"
+            app:playlist="@{viewModel.playlist}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_dev_bytes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/devbyte_item"/>
     </FrameLayout>
 </layout>

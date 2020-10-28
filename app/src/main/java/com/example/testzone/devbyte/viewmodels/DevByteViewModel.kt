@@ -2,6 +2,7 @@ package com.example.testzone.devbyte.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.testzone.devbyte.database.VideosDatabase
 import com.example.testzone.devbyte.repository.VideosRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,12 +26,12 @@ class DevByteViewModel (application: Application) : AndroidViewModel(application
     /**
      * The data source this ViewModel will fetch results from.
      */
-    private val videosRepository = VideosRepository()
+    private val videosRepository = VideosRepository(VideosDatabase.instance(application))
 
     /**
      * A playlist of videos displayed on the screen.
      */
-//    val playlist = videosRepository.videos
+    val playlist = videosRepository.videos
 
     /**
      * This is the job for all coroutines started by this ViewModel.
@@ -93,8 +94,8 @@ class DevByteViewModel (application: Application) : AndroidViewModel(application
 
             } catch (networkError: IOException) {
                 // Show a Toast error message and hide the progress bar.
-//                if(playlist.value.isNullOrEmpty())
-//                    _eventNetworkError.value = true
+                if(playlist.value.isNullOrEmpty())
+                    _eventNetworkError.value = true
             }
         }
     }

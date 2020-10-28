@@ -12,7 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testzone.R
 import com.example.testzone.databinding.FragmentDevByteBinding
+import com.example.testzone.devbyte.domain.DevByteVideo
+import com.example.testzone.devbyte.viewmodels.DevByteViewModel
+import com.example.testzone.devbyte.viewmodels.DevByteViewModelFactory
+import com.example.testzone.subscribe
 
 /**
  * Show a list of DevBytes on screen.
@@ -24,18 +29,18 @@ class DevByteFragment : Fragment() {
      * lazy. This requires that viewModel not be referenced before onActivityCreated, which we
      * do in this Fragment.
      */
-//    private val viewModel: DevByteViewModel by lazy {
-//        val activity = requireNotNull(this.activity) {
-//            "You can only access the viewModel after onActivityCreated()"
-//        }
-//        ViewModelProviders.of(this, DevByteViewModel.Factory(activity.application))
-//            .get(DevByteViewModel::class.java)
-//    }
+    private val viewModel: DevByteViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
+        ViewModelProviders.of(this, DevByteViewModelFactory(activity.application))
+            .get(DevByteViewModel::class.java)
+    }
 
     /**
      * RecyclerView Adapter for converting a list of Video to cards.
      */
-//    private var viewModelAdapter: DevByteAdapter? = null
+    private var viewModelAdapter: DevByteAdapter? = null
 
     /**
      * Called when the fragment's activity has been created and this
@@ -45,12 +50,12 @@ class DevByteFragment : Fragment() {
      */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<DevByteVideo>> { videos ->
-//            videos?.apply {
-//                viewModelAdapter?.videos = videos
-//            }
-//        })
-    }
+        viewModel.playlist.subscribe(viewLifecycleOwner) {
+                it?.apply {
+                    viewModelAdapter?.videos = it
+                }
+            }
+        }
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -71,63 +76,58 @@ class DevByteFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = FragmentDevByteBinding.inflate(inflater)
-//        val binding: FragmentDevByteBinding = DataBindingUtil.inflate(
-//            inflater,
-//            R.layout.fragment_dev_byte,
-//            container,
-//            false)
-//        // Set the lifecycleOwner so DataBinding can observe LiveData
-//        binding.setLifecycleOwner(viewLifecycleOwner)
-//
-//        binding.viewModel = viewModel
-//
-//        viewModelAdapter = DevByteAdapter(VideoClick {
-//            // When a video is clicked this block or lambda will be called by DevByteAdapter
-//
-//            // context is not around, we can safely discard this click since the Fragment is no
-//            // longer on the screen
-//            val packageManager = context?.packageManager ?: return@VideoClick
-//
-//            // Try to generate a direct intent to the YouTube app
-//            var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
-//            if(intent.resolveActivity(packageManager) == null) {
-//                // YouTube app isn't found, use the web url
-//                intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
-//            }
-//
-//            startActivity(intent)
-//        })
-//
-//        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
-//            layoutManager = LinearLayoutManager(context)
-//            adapter = viewModelAdapter
-//        }
-//
-//
-//        // Observer for the network error.
-//        viewModel.eventNetworkError.observe(this, Observer<Boolean> { isNetworkError ->
-//            if (isNetworkError) onNetworkError()
-//        })
+        // Set the lifecycleOwner so DataBinding can observe LiveData
+        binding.lifecycleOwner = viewLifecycleOwner
 
-        return binding.root
-    }
+        binding.viewModel = viewModel
+
+        viewModelAdapter = DevByteAdapter(VideoClickListener {
+            // When a video is clicked this block or lambda will be called by DevByteAdapter
+
+            // context is not around, we can safely discard this click since the Fragment is no
+            // longer on the screen
+            val packageManager = context?.packageManager ?: return@VideoClickListener
+
+            // Try to generate a direct intent to the YouTube app
+            var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
+            if(intent.resolveActivity(packageManager) == null) {
+                // YouTube app isn't found, use the web url
+                intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
+            }
+
+            startActivity(intent)
+        })
+
+        binding.root.findViewById<RecyclerView>(R.id.rc_dev_bytes).apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = viewModelAdapter
+        }
+
+
+        // Observer for the network error.
+        viewModel.eventNetworkError.subscribe(viewLifecycleOwner){
+            if (it) onNetworkError()
+        }
+
+            return binding.root
+        }
 
     /**
      * Method for displaying a Toast error message for network errors.
      */
-//    private fun onNetworkError() {
-//        if(!viewModel.isNetworkErrorShown.value!!) {
-//            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
-//            viewModel.onNetworkErrorShown()
-//        }
-//    }
+    private fun onNetworkError() {
+        if(!viewModel.isNetworkErrorShown.value!!) {
+            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
+            viewModel.onNetworkErrorShown()
+        }
+    }
 
     /**
      * Helper method to generate YouTube app links
      */
-//    private val DevByteVideo.launchUri: Uri
-//        get() {
-//            val httpUri = Uri.parse(url)
-//            return Uri.parse("vnd.youtube:" + httpUri.getQueryParameter("v"))
-//        }
+    private val DevByteVideo.launchUri: Uri
+        get() {
+            val httpUri = Uri.parse(url)
+            return Uri.parse("vnd.youtube:" + httpUri.getQueryParameter("v"))
+        }
 }

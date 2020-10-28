@@ -2,6 +2,11 @@ package com.example.testzone.devbyte.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.example.testzone.devbyte.database.VideosDatabase
+import com.example.testzone.devbyte.database.asDomainModel
+import com.example.testzone.devbyte.domain.DevByteVideo
+import com.example.testzone.devbyte.network.DevByteNetwork
+import com.example.testzone.devbyte.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -9,8 +14,10 @@ import timber.log.Timber
 /**
  * Repository for fetching devbyte videos from the network and storing them on disk
  */
-class VideosRepository() {
-
+class VideosRepository(private val database: VideosDatabase) {
+    val videos: LiveData<List<DevByteVideo>> = Transformations.map(database.videoDao.getVideos()) {
+        it.asDomainModel()
+    }
     /**
      * Refresh the videos stored in the offline cache.
      *
@@ -20,7 +27,11 @@ class VideosRepository() {
      *
      */
     suspend fun refreshVideos() {
-
+        withContext(Dispatchers.IO) {
+            Timber.d("refresh videos is called");
+            val playlist = DevByteNetwork.devbytes.getPlaylist().await()
+            database.videoDao.insertAll(playlist.asDatabaseModel())
+        }
     }
 
 }
