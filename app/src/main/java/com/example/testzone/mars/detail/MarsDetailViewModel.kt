@@ -18,11 +18,19 @@ package com.example.testzone.mars.detail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testzone.mars.network.MarsProperty
 
 /**
  * The [ViewModel] that is associated with the [MarsDetailFragment].
  */
-class MarsDetailViewModel(@Suppress("UNUSED_PARAMETER")marsProperty: MarsProperty, app: Application) : AndroidViewModel(app) {
+class MarsDetailViewModel(marsProperty: MarsProperty, app: Application) : AndroidViewModel(app) {
+    private val _selectedProperty = MutableLiveData<MarsProperty>()
+    val selectedProperty: LiveData<MarsProperty>
+        get() = _selectedProperty
+    init {
+        _selectedProperty.value = marsProperty
+    }
 }

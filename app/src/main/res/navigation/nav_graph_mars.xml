@@ -38,6 +38,9 @@
         android:name="com.example.testzone.mars.detail.MarsDetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail_mars">
+        <argument
+            android:name="selectedProperty"
+            app:argType="com.example.testzone.mars.network.MarsProperty" />
     </fragment>
 
 </navigation>

@@ -24,7 +24,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.testzone.R
 import com.example.testzone.databinding.FragmentOverviewMarsBinding
 import com.example.testzone.mars.network.MarsApiFilter
+import com.example.testzone.mars.overview.list.MarsPropertyListener
 import com.example.testzone.mars.overview.list.PhotoGridAdapter
+import com.example.testzone.navigateTo
+import com.example.testzone.subscribe
 
 /**
  * This fragment shows the the status of the Mars real-estate web services transaction.
@@ -52,7 +55,17 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
-        binding.photosGrid.adapter = PhotoGridAdapter()
+        binding.photosGrid.adapter = PhotoGridAdapter(MarsPropertyListener {
+            viewModel.displayPropertyDetail((it))
+        })
+        viewModel.navigateToSelectedProperty.subscribe(viewLifecycleOwner) {
+            if(null != it) {
+                requireView().navigateTo(
+                    OverviewFragmentDirections.actionShowDetail(it)
+                )
+                viewModel.displayPropertyDetailComplete()
+            }
+        }
 
         setHasOptionsMenu(true)
         return binding.root

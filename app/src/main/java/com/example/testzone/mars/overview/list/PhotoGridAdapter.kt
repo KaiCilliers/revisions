@@ -20,13 +20,14 @@ package com.example.testzone.mars.overview.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import com.example.testzone.clickAction
 import com.example.testzone.databinding.GridViewItemMarsBinding
 import com.example.testzone.mars.network.MarsProperty
 
-class PhotoGridAdapter : ListAdapter<MarsProperty,
+class PhotoGridAdapter(
+    private val clickListener: MarsPropertyListener
+) : ListAdapter<MarsProperty,
         MarsPropertyViewHolder>(MarsDifferencesCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarsPropertyViewHolder =
         MarsPropertyViewHolder(
@@ -35,8 +36,11 @@ class PhotoGridAdapter : ListAdapter<MarsProperty,
             )
         )
 
-    override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) =
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
+        val marsProperty = getItem(position)
+        holder.itemView.clickAction { clickListener.onMarsClick(marsProperty) }
+        holder.bind(marsProperty)
+    }
 
     //    companion object DiffCallback : DiffUtil.ItemCallback<MarsProperty>() {
 //        override fun areItemsTheSame(oldItem: MarsProperty, newItem: MarsProperty): Boolean =
