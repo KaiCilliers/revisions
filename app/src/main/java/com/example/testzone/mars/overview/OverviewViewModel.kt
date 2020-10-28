@@ -20,6 +20,7 @@ package com.example.testzone.mars.overview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.testzone.mars.network.MarsApi
 import com.example.testzone.mars.network.MarsProperty
 import kotlinx.coroutines.CoroutineScope
@@ -30,6 +31,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
+import java.lang.Exception
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
@@ -42,6 +44,10 @@ class OverviewViewModel : ViewModel() {
     // The external immutable LiveData for the response String
     val response: LiveData<String>
         get() = _response
+
+    private val _property = MutableLiveData<MarsProperty>()
+    val property: LiveData<MarsProperty>
+        get() = _property
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -61,18 +67,18 @@ class OverviewViewModel : ViewModel() {
      * Mars properties retrieved.
      */
     private fun getMarsRealEstateProperties() {
-        MarsApi.retrofitService.tempProp().enqueue(
-            object: Callback<List<MarsProperty>> {
-                override fun onFailure(call: Call<List<MarsProperty>>, t: Throwable) {
-                    _response.value = "Failure: ${t.message}"
+        viewModelScope.launch {
+            val deferred = MarsApi.retrofitService.getProperties()
+            try {
+                val listResult = deferred.await()
+                _response.value = "Success: ${listResult.size} Mars properties retrieved"
+                if(listResult.isNotEmpty()) {
+                   _property.value = listResult[0]
                 }
-
-                override fun onResponse(call: Call<List<MarsProperty>>, response: Response<List<MarsProperty>>) {
-                    _response.value = "Success: ${response.body()?.size} Mars properties retrieved"
-                }
-
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
             }
-        )
+        }
 //        coroutineScope.launch {
 //            // Get the Deferred object for our Retrofit request
 //            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
