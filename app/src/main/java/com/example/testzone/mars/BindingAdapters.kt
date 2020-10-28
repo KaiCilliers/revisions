@@ -17,6 +17,7 @@
 
 package com.example.testzone.mars
 
+import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -25,6 +26,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.testzone.R
 import com.example.testzone.mars.network.MarsProperty
+import com.example.testzone.mars.overview.MarsApiStatus
 import com.example.testzone.mars.overview.list.PhotoGridAdapter
 
 @BindingAdapter("imageUrl")
@@ -44,4 +46,19 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 fun bindRecyclerView(rc: RecyclerView, data: List<MarsProperty>?) {
     val adapter = rc.adapter as PhotoGridAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("marsApiStatus")
+fun bindStatus(statusImageView: ImageView, status: MarsApiStatus) = when (status) {
+    MarsApiStatus.LOADING -> {
+        statusImageView.visibility = View.VISIBLE
+        statusImageView.setImageResource(R.drawable.loading_animation)
+    }
+    MarsApiStatus.ERROR -> {
+        statusImageView.visibility = View.VISIBLE
+        statusImageView.setImageResource(R.drawable.ic_connection_error)
+    }
+    MarsApiStatus.DONE -> {
+        statusImageView.visibility = View.GONE
+    }
 }
