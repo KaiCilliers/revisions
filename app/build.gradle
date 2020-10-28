@@ -52,6 +52,9 @@ dependencies {
     implementation "com.google.android.material:material:$supportlibVersion"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
+    // WorkManager
+    implementation "android.arch.work:work-runtime-ktx:$version_work_manager"
+
     // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
