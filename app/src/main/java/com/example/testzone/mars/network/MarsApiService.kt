@@ -24,8 +24,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.http.Query
 
 private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.com/"
 
@@ -58,7 +57,9 @@ interface MarsApiService {
      * HTTP method
      */
     @GET("realestate")
-    fun getProperties():
+    fun getProperties(
+        @Query("filter") type: String
+    ):
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<List<MarsProperty>>
 }
