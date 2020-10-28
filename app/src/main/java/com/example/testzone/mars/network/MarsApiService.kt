@@ -24,6 +24,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import kotlinx.coroutines.Deferred
+import retrofit2.Call
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.com/"
 
@@ -31,17 +33,17 @@ private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.co
  * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
  * full Kotlin compatibility.
  */
-private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+//private val moshi = Moshi.Builder()
+//        .add(KotlinJsonAdapterFactory())
+//        .build()
 
 /**
  * Use the Retrofit builder to build a retrofit object using a Moshi converter with our Moshi
  * object.
  */
 private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .addConverterFactory(ScalarsConverterFactory.create())
+//        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .baseUrl(BASE_URL)
         .build()
 
@@ -59,6 +61,8 @@ interface MarsApiService {
     fun getProperties():
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<List<MarsProperty>>
+    @GET("realestate")
+    fun tempProp(): Call<String>
 }
 
 /**

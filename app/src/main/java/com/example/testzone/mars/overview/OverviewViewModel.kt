@@ -25,6 +25,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
@@ -56,17 +60,30 @@ class OverviewViewModel : ViewModel() {
      * Mars properties retrieved.
      */
     private fun getMarsRealEstateProperties() {
-        coroutineScope.launch {
-            // Get the Deferred object for our Retrofit request
-            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
-            try {
-                // Await the completion of our Retrofit request
-                var listResult = getPropertiesDeferred.await()
-                _response.value = "Success: ${listResult.size} Mars properties retrieved"
-            } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
+        MarsApi.retrofitService.tempProp().enqueue(
+            object: Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    _response.value = "Failure: ${t.message}"
+                    Timber.e(t.message)
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    _response.value = response.body()
+                }
+
             }
-        }
+        )
+//        coroutineScope.launch {
+//            // Get the Deferred object for our Retrofit request
+//            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
+//            try {
+//                // Await the completion of our Retrofit request
+//                var listResult = getPropertiesDeferred.await()
+//                _response.value = "Success: ${listResult.size} Mars properties retrieved"
+//            } catch (e: Exception) {
+//                _response.value = "Failure: ${e.message}"
+//            }
+//        }
     }
 
     /**
