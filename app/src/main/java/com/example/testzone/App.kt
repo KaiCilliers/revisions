@@ -1,10 +1,8 @@
 package com.example.testzone
 
 import android.app.Application
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.ExistingWorkPolicy
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
+import android.os.Build
+import androidx.work.*
 import com.example.testzone.devbyte.worker.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,11 +20,21 @@ class App : Application() {
      * Setup WorkManager background job to 'fetch' new network data daily.
      */
     private fun setupRecurringWork() {
+//        val constraints = Constraints.Builder()
+//            .setRequiredNetworkType(NetworkType.UNMETERED)
+//            .setRequiresBatteryNotLow(true)
+//            .setRequiresCharging(true)
+//            .apply {
+//                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    setRequiresDeviceIdle(true)
+//                }
+//            }
+//            .build()
         // WorkRequest with Worker
         val repeatingRequest = PeriodicWorkRequestBuilder<RefreshDataWorker>(
-            repeatInterval = 1,
-            repeatIntervalTimeUnit = TimeUnit.DAYS
-        ).build()
+            repeatInterval = 15,
+            repeatIntervalTimeUnit = TimeUnit.MINUTES)
+            .build()
         Timber.e("Periodic Work request for sync is scheduled")
         WorkManager.getInstance().enqueueUniquePeriodicWork(
             RefreshDataWorker.WORK_NAME,

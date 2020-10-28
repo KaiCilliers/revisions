@@ -5,6 +5,17 @@ import androidx.room.PrimaryKey
 import com.example.testzone.devbyte.domain.DevByteVideo
 
 /**
+ * Used to check if workmanager did indeed run at set intervals
+ * without having to rely on the Logcat
+ */
+@Entity
+data class Tracker(
+    @PrimaryKey
+    val time: Long,
+    val randomInt: Int
+)
+
+/**
  * DatabaseVideo represents a video entity in the database.
  */
 @Entity
