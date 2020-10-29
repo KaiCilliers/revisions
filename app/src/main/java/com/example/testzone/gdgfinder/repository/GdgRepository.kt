@@ -11,7 +11,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 
-class GdgChapterRepository(gdgApiService: GdgApiService) {
+class GdgRepository(gdgApiService: GdgApiService) {
 
     /**
      * A single network request, the results won't change. For this lesson we did not add an offline cache for simplicity

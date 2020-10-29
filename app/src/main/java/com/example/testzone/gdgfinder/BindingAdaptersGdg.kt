@@ -9,9 +9,11 @@ import com.example.testzone.gdgfinder.search.list.GdgListAdapter
 @BindingAdapter("listData")
 fun bindRecyclerView(rc: RecyclerView, data: List<GdgChapter>?) {
     val adapter = rc.adapter as GdgListAdapter
-    adapter.submitList(data) {
-        // scroll the list to the top after the diffs are calculated and posted
-        rc.scrollToPosition(0)
+    data?.let {
+        adapter.submitList(it) {
+            // scroll the list to the top after the diffs are calculated and posted
+            rc.scrollToPosition(0)
+        }
     }
 }
 
