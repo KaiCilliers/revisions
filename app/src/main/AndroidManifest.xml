@@ -2,13 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.testzone">
-
     <!-- In order for our app to access the Internet, we need to define this permission. -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- To access the location we need to ask for permission -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- To access the location we need to ask for permission -->
     <!-- see https://developer.android.com/training/location/retrieve-current.html -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".App"
@@ -19,31 +16,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".gdgfinder.GDGActivity">
+        <activity android:name=".SelectionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".devbyte.DevByteActivity"></activity>
+        <activity android:name=".gdgfinder.GDGActivity" />
+        <activity android:name=".devbyte.DevByteActivity" />
         <activity android:name=".mars.MarsActivity" />
         <activity android:name=".sleep.SleepActivity" />
         <activity android:name=".guess.GuessActivity" />
         <activity android:name=".dessert.DessertActivity" />
-        <activity
-            android:name=".trivia.TriviaActivity"
-            android:label="Test Zone" />
-        <activity
-            android:name=".simple.ColorMyViewsActivity"
-            android:label="Test Zone" />
-        <activity
-            android:name=".simple.AboutMeActivity"
-            android:label="Test Zone" />
-        <activity
-            android:name=".simple.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".trivia.TriviaActivity" />
+        <activity android:name=".simple.ColorMyViewsActivity" />
+        <activity android:name=".simple.AboutMeActivity" />
+        <activity android:name=".simple.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
