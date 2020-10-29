@@ -4,6 +4,8 @@
     android:textSize="24sp"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
+    android:layout_marginTop="16dp"
+    android:textAlignment="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:text="Random Activity"/>

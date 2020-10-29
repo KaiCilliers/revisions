@@ -1,5 +1,6 @@
 package com.example.testzone
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.testzone.dessert.Dessert
@@ -16,12 +17,21 @@ import com.example.testzone.trivia.TriviaActivity
 import kotlinx.android.synthetic.main.activity_selection.*
 
 class SelectionActivity : AppCompatActivity() {
-    private val adapter by lazy { SelectionAdapter() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selection)
-        rc_seletion.adapter = adapter
 
+        val adapter = SelectionAdapter {
+            startActivity(
+                Intent(
+                    this, it
+                )
+            )
+        }
+
+        rc_seletion.adapter = adapter
+        val s = MainActivity::class.java
         adapter.data = listOf(
             "MainActivity",
             "AboutMeActivity",
