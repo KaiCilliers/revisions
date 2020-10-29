@@ -16,4 +16,7 @@ interface VideoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTrackingWorkManager(tracker: Tracker)
+
+    @Query("SELECT * FROM Tracker")
+    fun momentOfTruth(): List<Tracker>
 }

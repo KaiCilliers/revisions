@@ -11,14 +11,10 @@
         tools:layout="@layout/fragment_sleep_tracker">
         <action
             android:id="@+id/action_trackerFragment_to_quailityFragment"
-            app:destination="@id/quailityFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:popEnterAnim="@anim/slide_in_right"/>
+            app:destination="@id/quailityFragment"/>
         <action
             android:id="@+id/action_trackerFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:popEnterAnim="@anim/slide_in_right"/>
+            app:destination="@id/detailFragment"/>
     </fragment>
     <fragment
         android:id="@+id/quailityFragment"

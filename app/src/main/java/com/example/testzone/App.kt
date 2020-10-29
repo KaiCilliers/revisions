@@ -3,6 +3,8 @@ package com.example.testzone
 import android.app.Application
 import android.os.Build
 import androidx.work.*
+import com.example.testzone.devbyte.database.DatabaseVideo
+import com.example.testzone.devbyte.database.VideosDatabase
 import com.example.testzone.devbyte.worker.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +56,11 @@ class App : Application() {
         applicationScope.launch {
             Timber.plant(Timber.DebugTree())
             setupRecurringWork()
+            val res = VideosDatabase.instance(applicationContext).videoDao.momentOfTruth()
+            Timber.e("Response List size: ${res.size}")
+            res.map {
+                Timber.e("$it")
+            }
         }
     }
 }

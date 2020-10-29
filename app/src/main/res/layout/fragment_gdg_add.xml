@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.testzone.gdgfinder.add.GdgAddViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".gdgfinder.add.GdgAddFragment">
+
+            <TextView
+                android:id="@+id/tv_intro_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/add_gdg"
+                android:textColor="#AAAAAA"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/img_image_add"
+                android:layout_width="411dp"
+                android:layout_height="230dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="2dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@id/et_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_intro_add"
+                app:srcCompat="@drawable/behind"
+                tools:src="@tools:sample/avatars"/>
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/editext_start_end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/editext_start_end"
+                android:layout_marginBottom="@dimen/edittext_top_bottom"
+                app:layout_constraintBottom_toTopOf="@id/et_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_image_add"/>
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/editext_start_end"
+                android:layout_marginTop="@dimen/edittext_top_bottom"
+                android:layout_marginEnd="@dimen/editext_start_end"
+                android:layout_marginBottom="@dimen/edittext_top_bottom"
+                android:singleLine="true"
+                app:layout_constraintBottom_toTopOf="@id/et_city"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_name"/>
+
+            <EditText
+                android:id="@+id/et_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/editext_start_end"
+                android:layout_marginTop="@dimen/edittext_top_bottom"
+                android:layout_marginEnd="@dimen/editext_start_end"
+                android:layout_marginBottom="@dimen/edittext_top_bottom"
+                android:singleLine="true"
+                app:layout_constraintBottom_toTopOf="@id/et_country"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_email"/>
+
+            <EditText
+                android:id="@+id/et_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/editext_start_end"
+                android:layout_marginTop="@dimen/edittext_top_bottom"
+                android:layout_marginEnd="@dimen/editext_start_end"
+                android:layout_marginBottom="@dimen/edittext_top_bottom"
+                android:singleLine="true"
+                app:layout_constraintBottom_toTopOf="@id/et_region"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_city"/>
+
+            <EditText
+                android:id="@+id/et_region"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/editext_start_end"
+                android:layout_marginTop="@dimen/edittext_top_bottom"
+                android:layout_marginEnd="@dimen/editext_start_end"
+                android:layout_marginBottom="@dimen/edittext_top_bottom"
+                android:singleLine="true"
+                app:layout_constraintBottom_toTopOf="@id/et_why"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_country"/>
+
+            <TextView
+                android:id="@+id/tv_why"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="1dp"
+                android:text="@string/motivation"
+                app:layout_constraintBottom_toTopOf="@id/et_why"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_region"/>
+
+            <EditText
+                android:id="@+id/et_why"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/editext_start_end"
+                android:layout_marginTop="@dimen/editext_start_end"
+                android:layout_marginEnd="@dimen/editext_start_end"
+                android:layout_marginBottom="@dimen/edittext_top_bottom"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                app:layout_constraintBottom_toTopOf="@+id/btn_ok_add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_region"/>
+
+            <Button
+                android:id="@+id/btn_ok_add"
+                android:layout_width="40dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#00FF00"
+                android:onClick="@{() -> viewModel.onSubmitApplication()}"
+                android:text="OK"
+                android:textColor="#FF0000"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_why"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>
